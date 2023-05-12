@@ -1,0 +1,53 @@
+- Was sind Ressourcen bei Deadlocks?
+	- Physikalische Geräte (Scanner, Arbeitsspeicher, ...)
+	- Informationseinheiten (Datenbanktabelle, Datei, ...)
+- Welche Unterscheidungen der Ressourcen bei Deadlocks gibt es?
+	- Unterbrechbare Ressourcen (preemptable)
+	- Nicht unterbrechbare Ressourcen (non-preemptable)
+- Bei welchen Ressourcen treten Deadlocks auf?
+	- bei nicht unterbrechbaren Ressourcen
+- Was ist der Unterschied zwischen Starvation und Deadlock?
+	- Starvation:
+		- Prozess bzw. Thread wartet unendlich lange
+	- Deadlock:
+		- zyklisches Warten auf Ressourcen
+- Was ist der Zusammenhang zwischen Starvation und Deadlocks?
+	- Deadlocks führen zu Starvation, nicht umgekehrt
+	- Starvation könnte enden
+	- Deadlocks brauchen externen Eingriff
+- Was ist die Voraussetzung für wechselseitigen Ausschluss?
+	- Jede Ressource entweder verfügbar oder genau einem Prozess zugeordnet
+- Was ist die Voraussetzung für die Hold-and-Wait-Bedingung?
+	- Prozesse, die schon Ressourcen reserviert haben, können weitere Ressourcen anfordern.
+- Was ist die Voraussetzung für die Ununterbrechbarkeit?
+	- Prozesse müssen gehaltene Ressourcen explizit freigeben und können nicht gewaltsam entzogen werden.
+- Was ist die Voraussetzung für die zyklische Wartebedingung?
+	- Es muss eine zyklische Kette von Prozessen geben, von denen jeder auf eine Ressource wartet, die dem nächsten Prozess in der Kette gehört.
+	- Wechselseitiger Ausschluss
+	- Hold-and-Wait-Bedingung
+	- Ununterbrechbarkeit
+- Was sind Umgangsmöglichkeiten für Deadlocks?
+	- Erkennen und Beheben
+	- Verhindern (Avoidance)
+		- "Nicht in die Nähe von Schlägertypen gehen."
+		- In die Zukunft schauen und Code analysieren, ob Deadlock passieren kann
+	- Vermeiden (Prävention)
+		- Im Vorfeld Sachen so ebnen, dass Deadlocks nicht passieren
+- Wann können Erkennungsalgorithmen für Deadlocks eingesetzt werden?
+	- Bei jeder Ressourcenanforderung
+		- Vorteil: sofortiges Erkennen von Deadlocks
+		- Nachteil: hoher Rechenaufwand
+	- In regelmäßigen Abständen
+	- Bei niedriger Prozessorauslastung
+		- Indikation: CPU arbeitet nicht, obwohl Prozesse vorhanden
+		- Nachteil: Deadlocks werden bei ständiger Last der CPU nicht entdeckt
+- Wie kann ein erkannter Deadlock behoben werden?
+	1. Behebung durch Unterbrechung
+		- Ressource einem Prozess entziehen und später wieder zurückgeben
+		- schwieriges Unterfangen -> schlecht automatisierbar
+	2. Behebung durch Rollback
+		- Prozesszustände in regelmäßigen Abständen (Checkpoints) in Datei schreiben
+		- bei Deadlock -> Rücksprung eines Prozesses zu einem Zustand zu einem vorherigen Checkpoint
+	3. Behebung durch Prozessabruch
+		- einfach, aber sehr invasiv
+		- ... aber welcher Prozess soll abgebrochen werden?

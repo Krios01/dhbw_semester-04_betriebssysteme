@@ -1,0 +1,17 @@
+- Welche Abstraktionen gibt es?
+	- CPU -> Prozesse (Blöcke von auszuführendem Code von unterschiedlichen Quellen)
+	- Arbeitsspeicher -> Seitenrahmen, denen Seiten zugeordnet sind aus unterschiedlichen Quellen
+	- Festplatte -> Dateien als logische Informationseinheit
+- Was ist der sequentielle Zugriff?
+	- Byte für Byte nur vom Anfang an lesbar
+	- kein Überspringen möglich
+	- historischer Hintergrund: Magnetbänder
+- Was ist wahlfreie Zugriff?
+	- Bytes (Datensätze) in beliebiger Reihenfolge lesbar
+	- z.B. Funktion seek legt Position in Datei fest (fseek unter C)
+		- danach sequentieller Zugriff
+	- Achtung: unerlässlich für diverse Anwendungen (z.B. Datenbanken)
+- Welche Arten von Navigation im Verzeichnisbaum gibt es?
+	- Absolute Pfadnamen
+	- Arbeitsverzeichnis
+	- Relative Pfadnahmen

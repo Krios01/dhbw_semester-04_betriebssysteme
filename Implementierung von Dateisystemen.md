@@ -1,0 +1,109 @@
+- Wie sieht das *Datenträgerlayout* aus?
+	- Master Boot Record (MBR)
+	- Partitionstabelle
+	- Partitionen
+- Was ist das *Master Boot Record*?
+	- wichtig beim Systemstart
+	- am Ende des MBR - Partitionstabelle mit Verweis auf die aktive Partition
+		- beim Start - erster Block (Boot Block) der aktiven Partition wird gelesen
+		- Programm im Boot Block lädt das Betriebssystem
+- Was beinhaltet eine *Partition*?
+	- Boot Block: zum Laden des Betriebssystems
+	- Superblock: Schlüsselparameter des Dateisystems
+		- Größe des Dateisystems, Anzahl freier Blöcke, Zeiger auf Liste der freien Blöcke
+	- Freispeicherverwaltung: Infos über freie Blöcke
+	- I-Node-Liste: Infos über alle Dateien
+	- Wurzelverzeichnis: Einstiegspunkt in Baumstruktur
+	- Daten selbst
+- Wie funktioniert die Implementierung von Dateien?
+	1. Zusammenhängende Belegung
+		- Abspeichern als zusammenhängende Menge von Blöcken
+	2. Belegung durch verkettete Listen
+		1. Zeiger auf nächsten Block am Anfang des Blocks
+		2. Informationen in Tabelle (im Arbeitsspeicher)
+	3. Indizierte Tabellen, I-Nodes
+- Was ist die *Zusammenhängende Belegung*?
+	- Abspeichern als zusammenhängende Menge von Blöcken
+	- Vorteile:
+		- einfache Implementierung
+		- hervorragende Leseleistung
+	- Nachteile:
+		- beim Löschen - Fragmentierung der Festplatte
+- Wie können die Nachteile der *zusammenhängenden Belegung* ausgeglichen werden?
+	- Verdichtung (Verschiebung der Dateien um Lücken zu schließen) - aber sehr teuer
+	- Verwaltung einer Liste mit freien Blöcken
+		- Achtung: Bereits bei der Erzeugung einer Datei muss Größe bekannt sein. Leider nicht ganz realistisch
+- Wofür wird die *zusammenhängende Belegung* verwendet?
+	- ursprünglich: Magnetbänder
+	- aktuell: CD-ROMs
+- Was ist die *Belegung durch verkettete Listen*?
+	- Datei liegt auf verschiedenen Blöcken
+	- Erster Eintrag im Block: Zeiger auf nächsten Block
+- Was sind Vorteile der *Belegung durch verkettete Listen*?
+	- keine Fragementierung
+	- Zugriffsparameter: Nummer des ersten Blocks
+	- Sequentielles Lesen: straight forward
+- Was sind Nachteile der *Belegung durch verkettete Listen*?
+	- Speicherplatz pro Block um den Zeiger verringert
+	- Wahlfreier Zugriff sehr teuer
+- Was ist eine Lösung für die Nachteile der *Belegung durch verkettete Listen*?
+	- Ablage der Zeiger in einer Tabelle im Arbeitsspeicher
+- Wie heißt die Tabelle bei der *Belegung durch verkettete Listen im RAM*?
+	- Datei-Allokationstabelle (File Allocation Table = FAT)
+- Welche Vorteile hat die *Belegung durch verkettete Listen im RAM*?
+	- gesamter Block steht zur Verfügung
+	- schneller wahlfreier Zugriff, da Infos im RAM
+	- Zugriffsparameter: Nummer des ersten Blocks
+- Welche Nachteile hat die *Belegung durch verkettete Listen im RAM*?
+	- Tabelle benötigt RAM
+		- Annahme: 200 GiB Festplatte, 1 KiB Blockgrüße, 4 Byte pro Tabelleneintrag -> 800 MiB für Tabelle
+	- nicht für große Platten geeignet
+- Wie funktionieren *Indizierte Tabellen, I-Nodes*?
+	- Konzept: jede Datei entspricht einer I-Node
+	- Infos in einer I-Node
+		- Dateiattribute (z.B. Dateigröße, aber nicht den Namen)
+		- Datenblockadressen (Unix: 15 Stück)
+			- 1-12 -> direkt auf Datenblock
+			- 13 -> einfach indirekter Verweis
+			- 14 -> doppelter indirekter Verweis
+			- 15 -> dreifacher indirekter Verweis
+- Wie können *Indizierte Tabellen, I-Nodes* implementiert werden?
+	![[Pasted image 20230511093849.png]]
+- Wie werden *Indizierte Tabellen, I-Nodes* bei unterschiedlichen Dateisystemen erzeugt?
+	- ext2/ext3 -> bei Anlage des Dateisystems
+	- ReiserFS -> bei Bedarf
+- Welche Vorteile haben *Indizierte Tabellen, I-Nodes*?
+	- alle Blöcke zu einer Datei bekannt
+	- Infos über Datei nur im Speicher, wenn Datei geöffnet
+	- Reservierter Speicher nur von Anzahl der offenen Dateien abhängig
+- Welche Vorteile haben *Indizierte Tabellen, I-Nodes*?
+	- Speicheroverhead für die Tabellen
+	- begrenzte Größe von Dateien (abhängig von Blockgröße)
+- Wie werden Verzeichnisse implementiert?
+	- Verzeichnis: Datei mit Tabelle mit Verzeichniseinträgen
+	- Verzeichniseintrag: 
+		- Info zum Auffinden der Inhalte (Dateien und Unterverzeichnisse)
+		- evtl. Infos über Attribute der Datei
+	- Ziel: Abbildung der Namen auf Datei-Infos
+		- bei zusammenhängender Belegung: Adresse und Größe
+		- bei verketteten Listen: Nummer des ersten Blocks
+		- bei indizierten Tabellen: Nummer des I-Nodes
+- Wie können gemeinsam genutzte Dateien (shared files) umgesetzt werden?
+	- Hard Links
+		- Verzeichniseintrag in beiden Verzeichnissen auf gleiche I-Node
+		- Probleme:
+			- Wer ist der Besitzer?
+			- Was passiert beim Löschen?
+	- Symbolische Links
+		- Neue I-Node vom Typ "Link" mit Inhalt des Pfades zu verlinkten Datei
+		- Vorteil: Nur Besitzer kann Datei löschen
+		- Nachteil: extra Overhead
+- Wie kann die Blockgröße bestmöglich implementiert werden?
+	- Größe Blöcke verschwenden Platz, wenn viele kleine Dateien
+	- Kleine Blöcke verschwenden Zeit, durch viele Zugriffe
+	- Optimum abhängig von "üblichen Größe" der Dateien
+- Welche Optionen der Freiblockverwaltung gibt es?
+	- Bitmap
+	- Verkettete Liste
+	- Verkettete Liste -> gruppiert
+	- Speichere Anfangsadressen und Größen von zusammenhängenden freien Blöcken

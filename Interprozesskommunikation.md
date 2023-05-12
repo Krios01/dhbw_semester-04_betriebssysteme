@@ -1,0 +1,29 @@
+- Welche Problematik herrscht bei Interprozesskommunikation?
+	- Koordinator verschiedener Prozesse kennt einzelne Prozessschritte nicht
+	- Abbruch ggf. an unpassender Stelle
+- Was ist eine Race Condition?
+	- Konstellation, in der das Ergebnis einer Operation (bzw. mehrerer Operationen) vom zeitlichen Verhalten bestimmter Einzeloperationen oder der Umgebung abhängt
+- Welche zwei Probleme gibt es bei Interprozesskommunikation?
+	1. Vermeiden von gleichzeitigen Zugriff auf Ressourcen
+	2. Ablauforganisation bei Abhängigkeiten untereinander
+		- z.B. Server:Client -> Client kann nicht arbeiten, ohne, dass Server gearbeitet hat
+- Welche Lösung gibt es für die beiden Probleme der Interprozesskommunikation?
+	- Kommunikation zwischen Prozessen, bzw. zwischen Threads
+		- Bedingung: Prozesse können gemeinsamen Speicher benutzen
+- Was bietet die Möglichkeit der Kommunikation?
+	- gemeinsame Nutzung von Daten in verschiedenen Prozessen
+	- Weiterreichen von Daten zwischen Prozessen
+- Was erschwert die Fehlerbehebung bei Race Conditions?
+	- Reproduktion des Fehlers schwer möglich
+- Was bedeutet *wechselseitiger Ausschluss*?
+	- bei Nutzung einer gemeinsamen Variablen -> Sicherstellung, dass kein anderer Prozess Variable nutzen kann
+	- Prozessbereiche, die zu Race Conditions führen können: kritische Regionen
+- Was kennzeichnet eine *gute* Lösung für Race Conditions?
+	- keine zwei Prozesse gleichzeitig in kritischer Region
+	- keine Annahmen über Geschwindigkeit und Anzahl der CPUs
+	- kein Prozess außerhalb kritischer Region darf anderen Prozess blockieren
+	- absehbare Wartezeit zum Eintritt in kritische Region
+- Warum ist der Ansatz "Interrupts ausschalten" für wechselseitigen Ausschluss nicht wünschenswert?
+	- weil kein Eingriff eines Steuerprozesses mehr möglich ist
+- Warum ist der Ansatz "Sperren von Variablen" für wechselseitigen Ausschluss nicht wünschenswert?
+	- weil weiterhin eine Race Condition vorkommt / vorkommen kann

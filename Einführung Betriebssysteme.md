@@ -1,0 +1,21 @@
+- Was sind die Aufgaben eines Betriebssystems?
+	- Abstraktion der Hardware
+	- Verwaltung der Ressourcen
+- Was bedeutet Abstraktion der Hardware?
+	- Hardwareprogrammierung ist hässlich
+	- Hardware beschränkt sich auf notwendige Funktionen
+		- Betriebssystem stellt Funktionein bereit, die Anwenderprogramme nutzen können
+	- Variabilität von Hardwarekomponenten
+		- Betriebssystem realisiert einheitliche Sicht für Anwendungen
+- Was bedeutet Verwaltung von Resourcen?
+	- Anwendung braucht Ressourcen zur Ausführung
+	- Leistungsfähige Rechner laufen im Mehrprozess- und Mehrbenutzerbetrieb
+	- Betriebssystem soll
+		- Ressourcen gerecht verteilen
+		- Fachbegriff: Multiplexing (Aufteilen von Ressourcen)
+		- Anwendungen und Benutzer gegeneinander sichern
+- Warum braucht es ein Betriebssystem?
+	- Realisierung der Sicherheitsverantwortlichkeiten (CIA Triad)
+- Wie kann ein Betriebssystem realisiert werden?
+	- Erweiterter Befehlssatz für BS
+	- Arbeit mit Interrupts und Systemaufrufen

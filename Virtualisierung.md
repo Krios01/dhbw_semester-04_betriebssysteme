@@ -1,0 +1,27 @@
+- Was ist das Ziel der Virtualisierung?
+	- Bestehende Schnittstelle so zu erweitern oder zu ersetzen, dass sie das Verhalten eines anderen Systems nachahmt![[Ziel-Virtualisierung.png]]
+- Was sind Gründe für Virtualisierung?
+	- Relativ schnelle Änderung bei der Hardware und Systemsoftware der niedrigeren Ebene
+	- Höhere Abstraktionsebenen (z.B. Middleware und Anwendungen) viel stabiler
+	- Reduzierung der Unterschiedlichkeit der Plattformen und Computer
+		- Arbeitserleichterung für Systemadmins
+	- Bietet hohen Grad an Portabilität
+- Welche Arten von Virtualisierung gibt es?
+	- Erstellung eines Laufzeitsystem
+	- Bereitstellung eines Systems in Form einer Schicht
+- Was ist eine Laufzeitumgebung (Virtuelle Prozessmaschine)?
+	- Bereitstellung eines abstrakten Befehlssatzes zum Ausführen von Anwendungen
+	- Virtualisierung nur für einen Prozess
+	- Befehle können interpretiert werden
+	- Befehle können emuliert werden
+- Warum wird Containervirtualisierung verwendet?
+	- Problem: Virtualisierung mittels Hypervisor ist ressourcenaufwändig
+	- Ziel: Isolation von Prozessen bzw. Prozessgruppen voneinander
+- Was sehen Prozesse im Container?
+	- Teil des Dateisystems
+	- Prozesse im gleichen Container
+	- Ggf. eigene Netzwerkadresse
+- Was sind Vorteile von Containervirtualisierung?
+	- kein Overhead durch extra Betriebssystem
+	- Erstellungen von Images -> aus Image kann Container gestartet werden
+	- Leichtes Verschieben von Images -> keine extra Konfigurationen

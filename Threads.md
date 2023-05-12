@@ -1,0 +1,33 @@
+- Was ist die traditionelle Prozessvorstellung?
+	- ein Adressraum (Platz im Arbeitsspeicher)
+	- ein Ausführungsfaden (thread of control)
+- Wie wird das Prozessmodell erweitert?
+	- mehrere Ausführungsfäden
+	- gleicher Adressraum
+	- gleiche globale Variablen, geöffnete Dateien, Kindprozesse, ausstehende Signale, Verwaltungsinformationen
+	- unterschiedliche Befehlszähler, Register, Stack, Zustand
+- Was ist eine Beispielanwendung mit Threads?
+	- Textverarbeitungsprogramm (WYSIWYG-Editor)
+		- Eingabeverarbeitung
+		- Autoformatierung
+		- Automatische Zwischenspeicherung
+- Was sind Zustände eines Threads?
+	- analog zu Prozessen
+	- bereit, aktiv, blockiert, beendet
+- Wie werden Threads erzeugt?
+	- durch anderen Thread
+- Wann werden Threads beendet?
+	- nach Beenden der Aufgabe
+- Welche weiteren Features haben Threads?
+	- Warten auf Beendigung eines bestimmten Threads
+	- Freiwilliger Verzicht auf Ressourcen (Prinzip der Kooperation)
+- Wo werden Threads verwaltet?
+	1. im Benutzerraum
+		- Threadtabelle und Scheduling im Benutzerraum
+		- sehr schnelle Anlage und Zerstörung von Threads
+		- Kern nimmt nur einen Prozess war
+		- Problem bei blockierenden Systemaufrufen
+	2. im Kernadressraum
+		- Unterstützung durch das Betriebssystem notwendig
+		- Threadtabelle wie Prozesstabelle im Kern
+		- Erzeugung und Vernichtung kostspieliger, da Systemaufrufe

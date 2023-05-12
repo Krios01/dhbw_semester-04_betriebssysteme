@@ -1,0 +1,39 @@
+- Was ist ein Prozess?
+	- Schlüsselkonzept in allen Betriebssystemen
+	- Prozess = Programm in Ausführung
+- Was umfasst ein Prozess?
+	- Speicherbereich mit:
+		- ausführbarem Programm
+		- Programmdaten (Ressourcenmenge, Register, verbundene Prozesse)
+		- Stack
+- Wie werden Prozesse erzeugt?
+	- am Anfang (BIOS -> Bootloader -> Betriebssystem)
+	- Initialisierung durch Betriebssystem
+		- Hintergrundprogramme - Daemons
+	- durch andere Prozesse
+		- durch SHELL-Eingabe oder Doppelklick auf GUI
+		- durch Hintergrundprozesse (Daemons, Viren)
+		- siehe C-Funktion `fork` und `exec`
+- Wie funktioniert die Prozesserzeugung durch andere Prozesse?
+	- Unterscheidung zwischen Elternprozess und Kindprozess
+	  -> Prozesshierarchisierung
+	- Gleichwertigkeit aller Prozesse -> Hinweis auf Hierarchie durch spezielles Token (Handle)
+		- Enterbung möglich (Kontrolle über Kindprozess kann abgegeben werden)
+		- siehe Windows
+- Welche Ursachen gibt es für Prozessbeendigung?
+	- normales Beenden (freiwillig) 
+		- wenn alles erledigt ist
+	- Beenden aufgrund eines Fehlers (freiwillig) 
+		- externe Ursache des Fehlers
+		- z.B. Datei konnte nicht gefunden werden
+	- Beenden aufgrund eines schwerwiegenden Fehlers (unfreiwillig)
+		- Fehler ist selbst verursacht
+		- z.B. Programmierfehler oder Zugriff auf ungültige Speicheradresse
+	- Beenden durch einen anderen Prozess (unfreiwillig)
+		- Systemaufruf kill bzw. TerminateProcess
+- Welche grundlegenden Prozessstatusübergänge gibt es?
+	- bereit -> aktiv: Scheduler-Entscheidung
+	- aktiv -> bereit: Scheduler, Zeitüberschreitung
+	- aktiv -> blockiert: beim Warten, z.B. E/A-Operationen
+	- blockiert -> bereit: Eintritt des Ergebnis, auf das gewartet wurde
+	- aktiv -> beendet: siehe Prozessbeendigung
